@@ -1,4 +1,3 @@
-const PORT = process.env.PORT || 5000;
 const express = require('express');
 const { Sequelize, DataTypes } = require('sequelize');
 const cors = require('cors');
@@ -582,6 +581,4 @@ process.on('SIGTERM', () => {
 
 });
 
-pp.listen(PORT, '0.0.0.0', () => {
-  console.log('Server running on port ${PORT}');
-});
+
