@@ -259,33 +259,50 @@ app.get('/api/health', (req, res) => {
 // INITIALIZE SYMPTOMS IN DATABASE
 // ============================================
 
-const SYMPTOMS = [
-  'Fever', 'Dry Cough', 'Wet Cough', 'Shortness of Breath',
-  'Fatigue', 'Body Aches', 'Headache', 'Loss of Taste', 'Loss of Smell',
-  'Sore Throat', 'Nausea', 'Vomiting', 'Diarrhea', 'Stomach Pain',
-  'Congestion', 'Runny Nose', 'Chills', 'Dizziness',
-  'Chest Pain', 'Rash', 'Eye Irritation', 'Painful Urination',
-  'Toothache', 'Loss of Appetite', 'Earache'
-];
+const createDefaultAdmin = async () => {
+  try {
+    const adminExists = await Admin.findOne({ where: { username: 'admin' } });
+    if (!adminExists) {
+      const hashedPassword = await bcrypt.hash('healthadmin2024', 10);
+      await Admin.create({
+        username: 'admin',
+        password: hashedPassword
+      });
+      console.log('Default admin created');
+    }
+  } catch (error) {
+    console.error('Error creating default admin:', error);
+  }
+};
 
 const initializeSymptoms = async () => {
   try {
+    const SYMPTOMS = [
+      'Fever', 'Dry Cough', 'Wet Cough', 'Shortness of Breath',
+      'Fatigue', 'Body Aches', 'Headache', 'Loss of Taste', 'Loss of Smell',
+      'Sore Throat', 'Nausea', 'Vomiting', 'Diarrhea', 'Stomach Pain',
+      'Congestion', 'Runny Nose', 'Chills', 'Dizziness',
+      'Chest Pain', 'Rash', 'Eye Irritation', 'Painful Urination',
+      'Toothache', 'Loss of Appetite', 'Earache'
+    ];
+    
     for (const symptomName of SYMPTOMS) {
       await Symptom.findOrCreate({
         where: { name: symptomName },
         defaults: { name: symptomName }
       });
     }
-    console.log('Symptoms initialized in database');
+    console.log('Symptoms initialized');
   } catch (error) {
     console.error('Error initializing symptoms:', error);
   }
 };
 
-// Call after sync
+// Sync database ONCE
 sequelize.sync().then(() => {
+  console.log('Database synced');
   createDefaultAdmin();
-  initializeSymptoms(); 
+  initializeSymptoms();
 });
 
 // ============================================
@@ -603,6 +620,7 @@ process.on('SIGTERM', () => {
   });
 
 });
+
 
 
 
