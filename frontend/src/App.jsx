@@ -50,7 +50,7 @@ function App() {
     setError('');
 
     try {
-      await axios.post(`${API_URL}/reports`, {
+      await axios.post(`${API_URL}/api/reports`, {
         symptoms: selectedSymptoms,
         zipCode: zipCode
       });
@@ -71,7 +71,7 @@ function App() {
     setError('');
 
     try {
-      const response = await axios.post(`${API_URL}/auth/login`, { password });
+      const response = await axios.post(`${API_URL}/api/auth/login`, { password });
       const { token: newToken } = response.data;
       
       setToken(newToken);
@@ -95,7 +95,7 @@ function App() {
   const fetchDashboardData = useCallback(async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`${API_URL}/dashboard?days=${dateRange}`, {
+      const response = await axios.get(`${API_URL}/api/dashboard?days=${dateRange}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setDashboardData(response.data);
@@ -330,4 +330,5 @@ function App() {
 
 
 export default App;
+
 
