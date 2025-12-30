@@ -13,6 +13,7 @@ const app = express();
 // ============================================
 app.use(cors({
   origin: [
+     'https://project6dssrt.vercel.app'
     'https://symptom-reporter.onrender.com',  // frontend URL
     'http://localhost:3000',  // For local testing
   ],
@@ -606,6 +607,7 @@ process.on('SIGTERM', () => {
   });
 
 });
+
 
 
 
