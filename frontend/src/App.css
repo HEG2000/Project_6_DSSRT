@@ -14,7 +14,7 @@ body {
 
 .App {
   min-height: 100vh;
-  background-image: url('/background.png');
+  background-image: url('https://github.com/HEG2000/Project_6_DSSRT/blob/main/frontend/public/background.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
