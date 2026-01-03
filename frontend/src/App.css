@@ -14,7 +14,7 @@ body {
 
 .App {
   min-height: 100vh;
-  background-image: url('/frontend/public/background.png');
+  background-image: url('/background.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
